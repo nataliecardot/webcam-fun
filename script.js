@@ -4,17 +4,19 @@ const ctx = canvas.getContext('2d');
 const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
 
-function getVideo() {
-  navigator.mediaDevices
-    .getUserMedia({ video: true, audio: false })
-    .then((MediaStream) => {
-      console.log(MediaStream);
-      video.srcObject = MediaStream;
-      video.play();
-    })
-    .catch((err) => {
-      console.error(`OH NO!!!`, err);
+async function getVideo() {
+  try {
+    const MediaStream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
     });
+
+    console.log(MediaStream);
+    video.srcObject = MediaStream;
+    video.play();
+  } catch (err) {
+    console.error(`OH NO!!!`, err);
+  }
 }
 
 function paintToCanvas() {
